@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Settings{% endblock %}
+{% block nav_settings %}on{% endblock %}
+{% block shell_style %}max-width:600px{% endblock %}
+{% block content %}
+<div class="page wf">
+  <div style="font-size:16px;font-weight:600">Settings</div>
+  <div style="font-size:11px;color:#5c584f;line-height:1.6">Billing and Stripe connection aren't part of this wireframe pass. The vendor directory (B2.1) is shown below since it feeds the ticket→vendor draft screen.</div>
+  <div class="b" style="padding:0">
+    <div style="display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid #ddd9d2;background:#faf9f7">
+      <div class="lbl" style="flex:1">Vendor</div><div class="lbl" style="width:120px">Trade</div><div class="lbl" style="width:80px">Times used</div>
+    </div>
+    {% for v in vendors %}
+    <div style="display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid #eae7e1">
+      <div style="flex:1">{{ v.fields.Name }}</div>
+      <div style="width:120px;color:#5c584f">{{ v.fields.Trade }}</div>
+      <div style="width:80px;color:#5c584f">{{ v.fields['Times Used'] }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

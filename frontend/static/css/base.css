@@ -1,0 +1,182 @@
+/* KeyFrame — base styles.
+   Ported from design/KeyFrame Wireframes.dc.html's own <style> block.
+   Canvas-only classes (.dv-turn, .dv-opts, .grp, etc. — used to lay out
+   multiple wireframe options side by side for review) are dropped; the
+   rest is the real visual language of the app. */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f0eee9;
+  font-family: system-ui, sans-serif;
+  color: #1a1a1a;
+}
+
+a { color: #2a78d6; text-decoration: none; }
+a:hover { color: #1a5aa8; }
+
+.wf {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  color: #1a1a1a;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* App shell */
+.app-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .14);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+  overflow: hidden;
+}
+
+.nav {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid #d5d2cb;
+  padding: 0 14px;
+  background: #faf9f7;
+}
+.nt {
+  padding: 12px 13px;
+  font: 500 11px 'IBM Plex Mono', monospace;
+  color: #8a8680;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+.nt.on { color: #1a1a1a; border-bottom-color: #1a1a1a; }
+.nt:hover { color: #1a1a1a; }
+
+.page { padding: 20px 22px; display: flex; flex-direction: column; gap: 16px; }
+
+/* Building blocks */
+.b { border: 1px solid #d5d2cb; }
+.lbl {
+  font: 500 8.5px/1 'IBM Plex Mono', monospace;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #8a8680;
+}
+.ref {
+  font: 500 8.5px/1 'IBM Plex Mono', monospace;
+  letter-spacing: .05em;
+  color: #2a78d6;
+  background: #eaf2fc;
+  border: 1px solid #cfe0f5;
+  border-radius: 3px;
+  padding: 3px 5px;
+}
+.ph {
+  background: repeating-linear-gradient(45deg, #f4f2ee, #f4f2ee 4px, #e7e4de 4px, #e7e4de 8px);
+  border: 1px solid #ddd9d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 9px 'IBM Plex Mono', monospace;
+  color: #8a8680;
+  text-align: center;
+}
+
+.btn, .btnp, .btnd {
+  border-radius: 4px;
+  padding: 7px 12px;
+  font: 500 11px 'IBM Plex Mono', monospace;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+}
+.btn { border-color: #b8b4ac; background: #fff; color: #1a1a1a; }
+.btn:hover { background: #faf9f7; }
+.btnp { border-color: #1a1a1a; background: #1a1a1a; color: #fff; }
+.btnp:hover { background: #000; }
+.btnd {
+  border-style: dashed;
+  border-color: #cdc9c1;
+  background: #f6f5f2;
+  color: #b2ada4;
+  cursor: not-allowed;
+}
+button.btn, button.btnp, button.btnd {
+  font-family: inherit;
+}
+
+.chip {
+  border: 1px solid #d5d2cb;
+  border-radius: 20px;
+  padding: 4px 9px;
+  font: 500 10px 'IBM Plex Mono', monospace;
+  color: #5c584f;
+  display: inline-block;
+}
+
+.hand {
+  font: 400 14px/1.3 'Architects Daughter', cursive;
+  color: #2a78d6;
+}
+
+/* SMS thread rendering */
+.sms { background: #f2f1ee; padding: 14px; display: flex; flex-direction: column; gap: 9px; }
+.bin, .bout {
+  max-width: 76%;
+  padding: 9px 11px;
+  border-radius: 12px;
+  font: 11px/1.5 'IBM Plex Mono', monospace;
+}
+.bin { background: #fff; border: 1px solid #ddd9d2; border-bottom-left-radius: 3px; align-self: flex-start; }
+.bout { background: #e3e0da; border: 1px solid #d3cfc7; border-bottom-right-radius: 3px; align-self: flex-end; }
+.tstamp { font: 8.5px 'IBM Plex Mono', monospace; color: #a09b93; align-self: center; padding: 2px 0; }
+
+table.m { border-collapse: collapse; width: 100%; font: 11px 'IBM Plex Mono', monospace; }
+table.m td, table.m th { border: 1px solid #ddd9d2; padding: 9px 10px; text-align: left; vertical-align: top; }
+table.m th { background: #faf9f7; font-weight: 500; }
+
+/* Mobile shell (PWA) */
+.app-shell.mobile { max-width: 400px; }
+.bottom-nav { display: flex; border-top: 1px solid #ddd9d2; background: #faf9f7; }
+.bottom-nav a {
+  flex: 1;
+  padding: 11px 0;
+  text-align: center;
+  font-size: 9px;
+  color: #8a8680;
+}
+.bottom-nav a.on {
+  color: #1a1a1a;
+  font-weight: 600;
+  border-top: 2px solid #1a1a1a;
+  margin-top: -1px;
+}
+
+/* Applicant hosted-link pages (narrow, no nav shell) */
+.applicant-page {
+  max-width: 400px;
+  margin: 24px auto;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, .14);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+  overflow: hidden;
+}
+.applicant-url-bar {
+  padding: 10px 15px;
+  background: #faf9f7;
+  border-bottom: 1px solid #ddd9d2;
+  font-size: 10px;
+  color: #8a8680;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@media (max-width: 720px) {
+  .app-shell { max-width: 100%; margin: 0; border-radius: 0; border-left: 0; border-right: 0; }
+  .page { padding: 14px 15px; }
+}

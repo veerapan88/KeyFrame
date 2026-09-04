@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Applications{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:980px{% endblock %}
+{% block content %}
+{% set selected_row = rows | selectattr('application.id', 'equalto', selected_id) | first %}
+<div class="page wf">
+  <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:16px;font-weight:600">Applications · {{ property.fields.Name if property else '' }}</div><div style="flex:1"></div><span class="ref">A5-S7 · A5-S9</span></div>
+
+  <div class="b" style="padding:13px;border-color:#1a1a1a;display:flex;gap:14px;align-items:center">
+    <div style="flex:1"><div class="lbl" style="color:#1a1a1a">Selected</div><div style="font-size:14px;font-weight:600;margin-top:4px">{{ selected_row.application.fields.Name if selected_row else '' }}</div></div>
+    <div style="flex:1"><div class="lbl">Lease</div><div style="margin-top:4px">drafted → sent · awaiting signature</div></div>
+    <span class="btn">View lease <span class="ref">A5-S13</span></span>
+  </div>
+
+  <div>
+    <div class="lbl" style="margin-bottom:7px">Not selected — refunds</div>
+    <table class="m">
+      <tr><th style="width:22%">Applicant</th><th style="width:14%">Fee</th><th style="width:22%">Refund status</th><th style="width:20%">Deadline</th><th>Applicant notified</th></tr>
+      {% for r in refund_rows %}
+      <tr>
+        <td>{{ r.application.fields.Name }}</td>
+        <td{% if r.fee_display.startswith('none') %} style="color:#8a8680"{% endif %}>{{ r.fee_display }}</td>
+        <td>
+          {% if r.status == 'refund_failed' %}
+            <a href="{{ url_for('applications.refund_failure') }}" style="color:#b3261e">{{ r.status }}</a>
+          {% else %}{{ r.status }}{% endif %}
+        </td>
+        <td>{% if r.countdown != '—' %}<span style="font-weight:600">{{ r.countdown }}</span>{% else %}—{% endif %}</td>
+        <td>{{ r.notified }} {% if r.status not in ('n/a',) %}<span class="ref">A5-S10</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+
+  <div class="b" style="padding:11px 13px;background:#faf9f7;font-size:11px;line-height:1.6;color:#5c584f">Decline notice and refund confirmation go out as one message when the lease is signed. Nothing to approve here.</div>
+  <div style="display:flex;gap:26px;align-items:flex-start">
+    <div class="hand" style="flex:1">days remaining, never a raw date — deadline is min(submitted+30d, selected+7d)</div>
+    <div class="hand" style="flex:1">no control on this screen can skip, deny, or delay a refund</div>
+  </div>
+</div>
+{% endblock %}

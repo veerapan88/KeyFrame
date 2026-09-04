@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title_suffix %} · {{ ticket.fields.Name }}{% endblock %}
+{% block nav_tickets %}on{% endblock %}
+{% block shell_style %}max-width:400px{% endblock %}
+{% block content %}
+<div class="wf">
+  <div style="padding:12px 15px;border-bottom:1px solid #ddd9d2;display:flex;gap:8px;align-items:center">
+    <div style="font-size:13px;font-weight:600">{{ ticket.fields.Name }}</div>
+    <div style="flex:1"></div>
+    <span class="chip" style="border-color:#1a1a1a;color:#1a1a1a">{{ ticket.fields.Status }}</span>
+  </div>
+  <div style="padding:16px 15px;display:flex;flex-direction:column;gap:13px">
+    <div style="display:flex;gap:8px"><div class="ph" style="flex:1;height:64px">tenant photo</div><div class="ph" style="flex:1;height:64px">tenant photo</div></div>
+    <div class="b" style="padding:0">
+      <div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Issue</div><div style="flex:1;font-size:11px">{{ ticket.fields.Description }}</div></div>
+      <div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Since</div><div style="flex:1;font-size:11px">{{ ticket.fields.Since }}</div></div>
+      <div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Tried</div><div style="flex:1;font-size:11px">{{ ticket.fields.Tried }}</div></div>
+      <div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Suspected</div><div style="flex:1;font-size:11px">{{ ticket.fields['Suspected Cause'] }}</div></div>
+      <div style="display:flex;padding:9px 11px"><div class="lbl" style="width:96px">Urgency</div><div style="flex:1;font-size:11px">{{ ticket.fields.Urgency }}</div></div>
+    </div>
+    <div class="b" style="padding:12px">
+      <div style="display:flex;align-items:center;gap:8px"><div class="lbl">Suggested vendor</div><div style="flex:1"></div><span class="ref">B2-S2</span></div>
+      <div style="font-size:11.5px;margin-top:6px">{{ vendor.fields.Name if vendor else '—' }} · {{ vendor.fields.Trade if vendor else '' }} · used {{ vendor.fields['Times Used'] if vendor else 0 }} times</div>
+      <div class="ph" style="height:58px;margin-top:10px">drafted message + photos, editable</div>
+      <div style="display:flex;gap:8px;margin-top:10px">
+        <span class="btn" style="padding:5px 10px">Edit</span>
+        <span class="btnp" style="padding:5px 10px">Copy message</span>
+        <div style="flex:1"></div>
+        <span style="font-size:9.5px;color:#8a8680;align-self:center">you send it</span>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

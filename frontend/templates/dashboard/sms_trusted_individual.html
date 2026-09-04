@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Trusted Individual thread{% endblock %}
+{% block nav_chat %}on{% endblock %}
+{% block shell_style %}max-width:330px{% endblock %}
+{% block content %}
+<div class="wf">
+  <div style="padding:11px 14px;border-bottom:1px solid #ddd9d2;display:flex;gap:8px;align-items:center">
+    <div style="font-size:12px;font-weight:600">(555) 010-0100</div><div style="flex:1"></div><div style="font-size:9px;color:#8a8680">Trusted Individual</div>
+  </div>
+  <div class="sms">
+    <div class="tstamp">A4-S2 · intro + availability</div>
+    <div class="bin">Hi [name] — [owner] asked if you'd open the door for showings at Unit 2. No app, no login, just texts like this one. Reply STOP to opt out.<br><br>Which blocks work for you this week?</div>
+    <div class="bout">Wed 9 to 1, Thu after 4</div>
+    <div class="bin">Got it. I'll only book inside those blocks and always confirm with you first.</div>
+    <div class="tstamp">A4-S5 · day-of reminder</div>
+    <div class="bin">Reminder: showing today 10:00 at Unit 2. You'll be meeting [lead first name].</div>
+    <div class="tstamp">A4-S6 · post-showing read</div>
+    <div class="bin">Thanks for hosting. Three quick things:<br><br>1. Did they show up? (Y/N)<br>2. Would you rent to them? (Y/N/Maybe)<br>3. Anything else worth passing on?<br><br>Notes are reviewed before they reach the owner.</div>
+    <div class="bout">Y<br>Maybe<br>[free text]</div>
+    <div class="bin">Thanks — sent to [owner].</div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Tenant thread{% endblock %}
+{% block nav_chat %}on{% endblock %}
+{% block shell_style %}max-width:330px{% endblock %}
+{% block content %}
+<div class="wf">
+  <div style="padding:11px 14px;border-bottom:1px solid #ddd9d2;display:flex;gap:8px;align-items:center">
+    <div style="font-size:12px;font-weight:600">(555) 010-0100</div><div style="flex:1"></div><div style="font-size:9px;color:#8a8680">Current tenant</div>
+  </div>
+  <div class="sms">
+    <div class="tstamp">A1-S2 · renewal check-in</div>
+    <div class="bin">Hi [name] — your lease at Unit 2 ends [date]. Are you planning to renew, leave, or still deciding? Reply STOP to opt out.</div>
+    <div class="bout">Leaving</div>
+    <div class="bin">Understood. Do you have a move-out date in mind?</div>
+    <div class="tstamp">B3-S1 · move-out condition capture</div>
+    <div class="bin">A few weeks out I'll walk through room by room with you and ask for photos. Nothing you send affects your deposit — it's so repairs are scheduled before you go.</div>
+    <div class="tstamp">B1-S1/S2 · issue intake + troubleshooting</div>
+    <div class="bout">The kitchen outlets stopped working</div>
+    <div class="bin">Which room, and when did it start? A photo of the outlet helps.</div>
+    <div class="bout">[photo] · this morning</div>
+    <div class="bin">Try the GFCI reset button on the outlet itself, then the kitchen breaker. Did that restore power?</div>
+    <div class="bout">No</div>
+    <div class="bin">Thanks — sending this to [owner] with your photos now.</div>
+    <div class="tstamp">B1-S3 · hazard bypass</div>
+    <div class="bin">You mentioned a gas smell. Leave the unit and call 911 or the gas company now. I've already called and texted [owner].</div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Applications{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:980px{% endblock %}
+{% block content %}
+{% set criteria = [
+  ('Income Pass', 'Income ≥ ' ~ (property.fields.get('Income Ratio Min', 3.0)) ~ '× rent'),
+  ('Credit Pass', 'Credit score ≥ ' ~ (property.fields.get('Credit Score Min', 650))),
+  ('Eviction Pass', 'No eviction in ' ~ (property.fields.get('Eviction Lookback Years', 5)) ~ ' yrs'),
+  ('Move In Pass', 'Move-in on time'),
+  ('Occupancy Pass', 'Occupancy ≤ ' ~ (property.fields.get('Occupancy Max', 3))),
+  ('Pet Pass', property.fields.get('Pet Policy', 'Pet policy')),
+] %}
+<div class="page wf">
+  <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:16px;font-weight:600">Applications · {{ property.fields.Name if property else '' }}</div><div style="flex:1"></div><span class="ref">A5-S6</span></div>
+
+  <div class="b" style="padding:10px 13px;display:flex;gap:22px;align-items:center;background:#faf9f7">
+    <div><span class="lbl">Invited</span> <span style="font-weight:600">{{ invited }}</span></div><div style="color:#ddd9d2">|</div>
+    <div><span class="lbl">Results in</span> <span style="font-weight:600">{{ results_in }}</span></div><div style="color:#ddd9d2">|</div>
+    <div><span class="lbl">Pending</span> <span style="font-weight:600">{{ pending }}</span></div><div style="flex:1"></div>
+    <div style="font-size:10.5px;color:#8a8680">Pipeline state only</div>
+  </div>
+
+  <table class="m">
+    <tr>
+      <th style="width:210px">Your published criteria <span class="ref" style="margin-left:4px">A3-S1</span></th>
+      {% for row in rows %}<th style="width:{{ (76/rows|length)|round(0,'floor')|int }}%">{{ row.application.fields.Name }}</th>{% endfor %}
+    </tr>
+    <tr>
+      <td style="background:#faf9f7"><div class="lbl">Status</div></td>
+      {% for row in rows %}
+        <td>{{ row.screening.fields.Status if row.screening else 'pending' }}{% if row.screening and row.screening.fields.Status != 'complete' %} · report expected{% endif %}</td>
+      {% endfor %}
+    </tr>
+    {% for field_key, label in criteria %}
+    <tr>
+      <td>{{ label }}</td>
+      {% for row in rows %}
+        {% set val = row.screening.fields.get(field_key) if row.screening else None %}
+        {% if val is none %}
+          <td class="ph" style="height:38px">awaiting</td>
+        {% elif val %}
+          <td>✓ meets</td>
+        {% else %}
+          <td>✗ below{% if field_key == 'Credit Pass' %} ({{ row.screening.fields.get('Credit Score') }}){% endif %}</td>
+        {% endif %}
+      {% endfor %}
+    </tr>
+    {% endfor %}
+    <tr>
+      <td style="background:#faf9f7"><div class="lbl">Host read</div><span class="ref">A4-S6</span></td>
+      {% for row in rows %}
+        <td>{% if row.host_read %}{{ 'Showed' if row.host_read.fields['Showed Up'] == 'Yes' else 'Did not show' }}{% if row.host_read.fields['Would Rent'] %} · would rent: {{ row.host_read.fields['Would Rent'] }}{% endif %}{% else %}—{% endif %}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <td style="background:#faf9f7"><div class="lbl">Interview</div></td>
+      {% for row in rows %}<td><span class="btn" style="padding:4px 9px">Prep sheet</span></td>{% endfor %}
+    </tr>
+    <tr>
+      <td style="background:#faf9f7"><div class="lbl">Fee</div></td>
+      {% for row in rows %}
+        <td>
+          {% if row.fee and row.fee.fields.get('Portable Report Used') %}Portable report · no fee <span class="ref">A5-S4b</span>
+          {% elif row.fee %}${{ row.fee.fields.get('Amount', 0)|int }} charged
+          {% else %}—{% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+    <tr>
+      <td style="background:#faf9f7"><div class="lbl">Decision</div></td>
+      {% for row in rows %}
+        <td>
+          {% if row.screening and row.screening.fields.Status == 'complete' %}
+          <form method="post" action="{{ url_for('applications.select', application_id=row.application.id) }}">
+            <button type="submit" class="btnp" style="width:100%;justify-content:center">Select</button>
+          </form>
+          {% else %}
+          <span class="btnd" style="width:100%;justify-content:center">Select</span>
+          {% endif %}
+        </td>
+      {% endfor %}
+    </tr>
+  </table>
+  <div class="hand">no composite score, no grade, no default row order — cells are pass/fail against the landlord's own written criteria</div>
+</div>
+{% endblock %}

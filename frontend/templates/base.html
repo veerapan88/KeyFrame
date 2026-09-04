@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KeyFrame{% block title_suffix %}{% endblock %}</title>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+</head>
+<body>
+{% if not airtable_configured %}
+<div style="background:#fff3cd;color:#7a5c00;font:500 11px 'IBM Plex Mono',monospace;padding:8px 16px;text-align:center;border-bottom:1px solid #e6d38a">
+  Demo data — Airtable isn't connected yet. Add AIRTABLE_TOKEN and AIRTABLE_BASE_ID to .env to switch to live data.
+</div>
+{% endif %}
+<div style="padding:24px 16px">
+  <div class="app-shell{% block shell_extra_class %}{% endblock %}" style="{% block shell_style %}max-width:1080px{% endblock %}">
+    <div class="nav">
+      <a class="nt {% block nav_properties %}{% endblock %}" href="{{ url_for('stub.properties') }}">Properties</a>
+      <a class="nt {% block nav_pipeline %}{% endblock %}" href="{{ url_for('pipeline.index') }}">Pipeline</a>
+      <a class="nt {% block nav_tickets %}{% endblock %}" href="{{ url_for('tickets.index') }}">Tickets</a>
+      <a class="nt {% block nav_chat %}{% endblock %}" href="{{ url_for('stub.chat') }}">Chat</a>
+      <a class="nt {% block nav_settings %}{% endblock %}" href="{{ url_for('stub.settings') }}">Settings</a>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <div style="padding:10px 22px 0">
+        {% for m in messages %}
+        <div class="b wf" style="padding:9px 12px;background:#eaf2fc;border-color:#cfe0f5;font-size:11px;margin-bottom:8px">{{ m }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </div>
+</div>
+</body>
+</html>

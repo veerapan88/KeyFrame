@@ -1,0 +1,33 @@
+{% extends "applicant_base.html" %}
+{% block title_suffix %} · Move-in payment{% endblock %}
+{% block content %}
+<div class="applicant-page wf" style="max-width:300px">
+  {% if jurisdiction in ('Chicago-Cook',) %}
+  <div class="applicant-url-bar"><div>Chicago / Cook County</div><div style="flex:1"></div><span class="ref">§7</span></div>
+  <div style="padding:16px 15px;display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:13px;font-weight:600">Move-in payment</div>
+    <div class="ph" style="height:74px">deposit collection unavailable<br>in this jurisdiction</div>
+    <div class="b" style="padding:11px;font-size:10.5px;line-height:1.65">Local law requires the deposit be held in a segregated, interest-bearing account. The owner will arrange it with you directly.</div>
+    <span class="btnd" style="justify-content:center;padding:11px">Pay deposit</span>
+    <div style="font-size:10.5px">First month's rent can still be paid here.</div>
+  </div>
+  {% else %}
+  <div class="applicant-url-bar"><div>{{ 'California property' if jurisdiction == 'CA' else 'Illinois property' }}</div><div style="flex:1"></div><span class="ref">A5-S14</span></div>
+  <div style="padding:16px 15px;display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:13px;font-weight:600">Move-in payment</div>
+    <div class="b" style="padding:0">
+      <div style="display:flex;justify-content:space-between;padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px"><span>Security deposit</span><span>$2,400</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 11px;font-size:11px"><span>First month's rent</span><span>$2,400</span></div>
+    </div>
+    <div class="b" style="padding:11px;font-size:10.5px;line-height:1.65;background:#faf9f7">
+      {% if jurisdiction == 'CA' %}
+      Your deposit is returned with an itemized statement within 21 days of move-out. Dated move-in photos will be taken and shared with you.
+      {% else %}
+      Your deposit is returned with an itemized statement within 45 days of move-out.
+      {% endif %}
+    </div>
+    <span class="btnp" style="justify-content:center;padding:11px">Pay $4,800</span>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

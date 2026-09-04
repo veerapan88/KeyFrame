@@ -1,0 +1,4 @@
+Flask==3.0.3
+pyairtable==2.3.3
+python-dotenv==1.0.1
+stripe==10.12.0

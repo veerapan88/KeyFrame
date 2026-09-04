@@ -1,0 +1,13 @@
+{% extends "applicant_base.html" %}
+{% block title_suffix %} · Portable report{% endblock %}
+{% block content %}
+<div class="applicant-page wf" style="max-width:300px">
+  <div class="applicant-url-bar"><div>Portable report</div><div style="flex:1"></div><span class="ref">A5-S4b</span></div>
+  <div style="padding:16px 15px;display:flex;flex-direction:column;gap:12px">
+    <div style="font-size:12.5px;line-height:1.5">Submit your reusable report — no fee will be charged.</div>
+    <div class="ph" style="height:66px">upload file, or paste report link</div>
+    <div class="b" style="padding:10px;font-size:10.5px;line-height:1.55;background:#faf9f7">Must be dated within the last 30 days and cover credit, criminal, and eviction history.</div>
+    <a class="btnp" style="justify-content:center;padding:11px" href="{{ url_for('applicant.receipt', token=token) }}">Submit report</a>
+  </div>
+</div>
+{% endblock %}

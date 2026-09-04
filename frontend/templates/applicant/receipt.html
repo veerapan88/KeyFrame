@@ -1,0 +1,13 @@
+{% extends "applicant_base.html" %}
+{% block title_suffix %} · Receipt{% endblock %}
+{% block content %}
+<div class="applicant-page wf" style="max-width:300px">
+  <div class="applicant-url-bar"><div>Receipt</div><div style="flex:1"></div><span class="ref">A5-S5</span></div>
+  <div style="padding:16px 15px;display:flex;flex-direction:column;gap:9px">
+    <div style="font-size:12.5px;font-weight:600">Paid · ${{ '%.2f'|format(property.fields['Fee Amount']) if property else '0.00' }}</div>
+    <div style="font-size:10.5px;color:#8a8680;line-height:1.6">Itemized receipt sent by text and email. Your credit report follows automatically once results return.</div>
+    <div class="ph" style="height:44px">itemized lines · date · property</div>
+    <a href="{{ url_for('applicant.deposit', token=token) }}" style="font-size:10.5px;margin-top:6px">Continue to lease &amp; deposit once selected →</a>
+  </div>
+</div>
+{% endblock %}

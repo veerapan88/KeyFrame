@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Host reads{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:900px{% endblock %}
+{% block content %}
+<div class="page wf">
+  <div style="display:flex;align-items:baseline;gap:10px">
+    <div style="font-size:16px;font-weight:600">Post-showing reads</div>
+    <div style="flex:1"></div>
+    <a href="{{ url_for('showings.index') }}" style="font-size:10.5px">← Showings</a>
+  </div>
+  <div style="display:flex;flex-wrap:wrap;gap:14px">
+    {% for card in cards %}
+    <div class="b" style="width:420px">
+      <div style="padding:18px 20px;display:flex;flex-direction:column;gap:13px">
+        <div style="display:flex;align-items:baseline;gap:10px">
+          <div style="font-size:14px;font-weight:600">{{ card.fields.Label }}</div>
+          <div style="flex:1"></div>
+          <span class="ref">{{ 'A4-S6' if card.fields['Guard Status'] == 'cleared' else 'guard state' }}</span>
+        </div>
+        <div class="b" style="padding:0">
+          <div style="display:flex;padding:11px 13px;border-bottom:1px solid #eae7e1"><div style="flex:1"><div class="lbl">Did they show up</div></div><div style="font-weight:600">{{ card.fields['Showed Up'] or '—' }}</div></div>
+          <div style="display:flex;padding:11px 13px;border-bottom:1px solid #eae7e1"><div style="flex:1"><div class="lbl">Would you rent to them</div></div><div style="font-weight:600">{{ card.fields['Would Rent'] or '—' }}</div></div>
+          <div style="padding:11px 13px">
+            <div class="lbl" style="margin-bottom:6px">Notes</div>
+            {% if card.fields['Guard Status'] == 'cleared' %}
+              <div style="font-size:11px;line-height:1.6;color:#5c584f">{{ card.fields.Notes or '(no notes)' }}</div>
+            {% else %}
+              <div class="ph" style="height:46px">reviewing note · available shortly</div>
+            {% endif %}
+          </div>
+        </div>
+        {% if card.fields['Guard Status'] == 'cleared' %}
+        <div style="display:flex;gap:9px"><span class="btn" style="padding:5px 10px">Attach to lead</span><span class="btn" style="padding:5px 10px">Interview prep</span></div>
+        {% else %}
+        <div class="hand">structured answers land instantly; free text waits for the guard — never free text alone</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

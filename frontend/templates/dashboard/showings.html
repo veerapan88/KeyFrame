@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Showings{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:820px{% endblock %}
+{% block content %}
+<div class="page wf">
+  <div style="display:flex;align-items:center;gap:10px">
+    <div style="font-size:16px;font-weight:600">Showings</div>
+    <div style="flex:1"></div>
+    <div style="display:flex;border:1px solid #d5d2cb;border-radius:4px;overflow:hidden">
+      <div style="padding:6px 12px;font-size:10.5px;color:#8a8680">List</div>
+      <div style="padding:6px 12px;font-size:10.5px;color:#8a8680;border-left:1px solid #d5d2cb">Board</div>
+      <div style="padding:6px 12px;font-size:10.5px;background:#1a1a1a;color:#fff;border-left:1px solid #1a1a1a">Timeline</div>
+    </div>
+    <span class="ref">A4-S4</span>
+  </div>
+  <div style="display:flex;gap:9px;align-items:center">
+    <div class="chip">All properties ▾</div>
+    <div class="chip">Host: any ▾</div>
+    <div class="chip" style="border-color:#1a1a1a;color:#1a1a1a">Next 7 days</div>
+    <div style="flex:1"></div>
+    <a href="{{ url_for('showings.reads') }}" style="font-size:10.5px">Post-showing reads →</a>
+  </div>
+  <div class="b" style="padding:0">
+    {% for day, items in grouped.items() %}
+    <div style="padding:8px 12px;background:#faf9f7;border-bottom:1px solid #ddd9d2" class="lbl">{{ day }}</div>
+    {% for item in items %}
+    <div style="display:flex;border-bottom:1px solid #eae7e1">
+      <div style="width:78px;padding:12px;border-right:1px solid #eae7e1;background:#fcfbf9">{{ item.time }}</div>
+      <div style="padding:12px;flex:1;display:flex;gap:12px;align-items:center">
+        <div style="flex:1">
+          <div>{{ item.lead.fields.Name if item.lead else 'Lead' }}</div>
+          <div style="font-size:10px;color:#8a8680">Host: {{ item.host.fields.Name if item.host else 'you' }}</div>
+        </div>
+        <span class="chip"{% if item.status == 'confirmed' %} style="border-color:#1a1a1a;color:#1a1a1a"{% endif %}>{{ 'no-show' if item.no_show else item.status }}</span>
+      </div>
+    </div>
+    {% endfor %}
+    {% endfor %}
+  </div>
+  <div class="b" style="padding:11px 13px;display:flex;gap:12px;align-items:center;background:#faf9f7">
+    <div class="lbl">Host availability</div>
+    <div style="font-size:11px">See Trusted Individual thread for current blocks</div>
+    <div style="flex:1"></div>
+    <span class="btn" style="padding:5px 10px">Ask for more <span class="ref">A4-S2</span></span>
+  </div>
+</div>
+{% endblock %}

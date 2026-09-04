@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Lead thread{% endblock %}
+{% block nav_chat %}on{% endblock %}
+{% block shell_style %}max-width:330px{% endblock %}
+{% block content %}
+<div class="wf">
+  <div style="padding:11px 14px;border-bottom:1px solid #ddd9d2;background:#fff;display:flex;gap:8px;align-items:center">
+    <div style="font-size:12px;font-weight:600">(555) 010-0100</div><div style="flex:1"></div><div style="font-size:9px;color:#8a8680">Property A line</div>
+  </div>
+  <div class="sms">
+    <div class="tstamp">A3-S2 · pre-qualification</div>
+    <div class="bin">Hi — this is the leasing assistant for Property A, Unit 2. A few quick questions before we book a showing. Reply STOP to opt out.<br><br>What's your approximate monthly household income?</div>
+    <div class="bout">[income]</div>
+    <div class="bin">Thanks. Any evictions in the last 5 years?</div>
+    <div class="bout">No</div>
+    <div class="tstamp">A4-S4 · showing offer</div>
+    <div class="bin">You're pre-qualified. Open times: Wed 10:00, Wed 11:30, Thu 9:00. Reply with one, or ask for another time.</div>
+    <div class="bout">Wed 10:00</div>
+    <div class="bin">Booked — Wed 10:00, [address]. You'll be met by [host first name]. Reminder the morning of.</div>
+    <div class="tstamp">A5-S2 · invitation to apply</div>
+    <div class="bin">The owner would like you to apply. The fee is $52 and is refunded in full if you're not selected. Criteria and your rights are on this page: keyframe.link/apply/••••</div>
+    <div class="tstamp">A5-S10 · combined decline + refund</div>
+    <div class="bin">The owner has signed another applicant, so you weren't selected this time. Your $52 fee is being refunded in full to the card ending ••42 — no action needed.</div>
+  </div>
+</div>
+{% endblock %}

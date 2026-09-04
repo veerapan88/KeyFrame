@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Before you send{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:560px;background:transparent;border:0;box-shadow:none{% endblock %}
+{% block content %}
+<div style="background:#e9e6e0;padding:14px;display:flex;justify-content:center">
+<form method="post" action="{{ url_for('applications.batch_invite_send') }}"
+      class="wf" style="background:#fff;border:1px solid #c9c5bd;border-radius:6px;width:100%;padding:22px 24px;display:flex;flex-direction:column;gap:15px">
+  {% for id in selected_ids %}<input type="hidden" name="lead_id" value="{{ id }}">{% endfor %}
+  <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:15px;font-weight:600">Before you send</div><div style="flex:1"></div><span class="ref">A5-S1a</span></div>
+  <div class="b" style="padding:14px;background:#faf9f7;font-size:12.5px;line-height:1.6">You'll refund the application fee in full to anyone you don't select, automatically.</div>
+  <div style="font-size:11px;line-height:1.65;color:#5c584f">Screening runs in parallel, so a wider pool costs you time, not money — only the applicant you select keeps a paid fee. Refunds fire on their own; you don't track them.</div>
+  <div style="display:flex;gap:16px">
+    <div class="b" style="flex:1;padding:11px"><div class="lbl">Inviting</div><div style="font-size:20px;font-weight:600;margin-top:5px">{{ inviting }}</div></div>
+    <div class="b" style="flex:1;padding:11px"><div class="lbl">Fee each</div><div style="font-size:20px;font-weight:600;margin-top:5px">${{ fee|int }}</div></div>
+    <div class="b" style="flex:1;padding:11px"><div class="lbl">Net cost if you sign 1</div><div style="font-size:20px;font-weight:600;margin-top:5px">$0</div></div>
+  </div>
+  <div style="display:flex;gap:9px;align-items:center">
+    <a class="btn" href="{{ url_for('applications.batch_invite') }}">← Adjust selection</a>
+    <div style="flex:1"></div>
+    <button type="submit" class="btnp">Confirm &amp; send {{ inviting }} invite{{ 's' if inviting != 1 else '' }}</button>
+  </div>
+</form>
+</div>
+{% endblock %}

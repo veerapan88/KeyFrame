@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+body{margin:0;background:#f0eee9;font-family:system-ui,sans-serif}
+a{color:#2a78d6}a:hover{color:#1a5aa8}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 8px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start;margin:0 0 34px}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}
+.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}
+.dv-next{margin:6px 0 0;font:12px/1.6 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+.grp{font:400 20px/1 'Architects Daughter',cursive;color:rgba(0,0,0,.42);margin:6px 0 14px;display:flex;align-items:center;gap:12px}
+.grp:after{content:"";flex:1;height:1px;background:rgba(0,0,0,.12)}
+.wf{font-family:'IBM Plex Mono',ui-monospace,monospace;color:#1a1a1a;font-size:12px;line-height:1.45}
+.b{border:1px solid #d5d2cb}
+.lbl{font:500 8.5px/1 'IBM Plex Mono',monospace;letter-spacing:.09em;text-transform:uppercase;color:#8a8680}
+.ref{font:500 8.5px/1 'IBM Plex Mono',monospace;letter-spacing:.05em;color:#2a78d6;background:#eaf2fc;border:1px solid #cfe0f5;border-radius:3px;padding:3px 5px}
+.ph{background:repeating-linear-gradient(45deg,#f4f2ee,#f4f2ee 4px,#e7e4de 4px,#e7e4de 8px);border:1px solid #ddd9d2;display:flex;align-items:center;justify-content:center;font:9px 'IBM Plex Mono',monospace;color:#8a8680;text-align:center}
+.btn{border:1px solid #b8b4ac;border-radius:4px;padding:7px 12px;font:500 11px 'IBM Plex Mono',monospace;background:#fff;display:inline-flex;align-items:center;gap:6px}
+.btnp{border:1px solid #1a1a1a;border-radius:4px;padding:7px 12px;font:500 11px 'IBM Plex Mono',monospace;background:#1a1a1a;color:#fff;display:inline-flex;align-items:center;gap:6px}
+.btnd{border:1px dashed #cdc9c1;border-radius:4px;padding:7px 12px;font:500 11px 'IBM Plex Mono',monospace;background:#f6f5f2;color:#b2ada4;display:inline-flex;align-items:center;gap:6px}
+.chip{border:1px solid #d5d2cb;border-radius:20px;padding:4px 9px;font:500 10px 'IBM Plex Mono',monospace;color:#5c584f}
+.nav{display:flex;gap:2px;border-bottom:1px solid #d5d2cb;padding:0 14px;background:#faf9f7}
+.nt{padding:12px 13px;font:500 11px 'IBM Plex Mono',monospace;color:#8a8680;border-bottom:2px solid transparent}
+.nt.on{color:#1a1a1a;border-bottom-color:#1a1a1a}
+.hand{font:400 14px/1.3 'Architects Daughter',cursive;color:#2a78d6}
+.sms{background:#f2f1ee;padding:14px;display:flex;flex-direction:column;gap:9px}
+.bin,.bout{max-width:76%;padding:9px 11px;border-radius:12px;font:11px/1.5 'IBM Plex Mono',monospace}
+.bin{background:#fff;border:1px solid #ddd9d2;border-bottom-left-radius:3px;align-self:flex-start}
+.bout{background:#e3e0da;border:1px solid #d3cfc7;border-bottom-right-radius:3px;align-self:flex-end}
+.tstamp{font:8.5px 'IBM Plex Mono',monospace;color:#a09b93;align-self:center;padding:2px 0}
+table.m{border-collapse:collapse;width:100%;font:11px 'IBM Plex Mono',monospace}
+table.m td,table.m th{border:1px solid #ddd9d2;padding:9px 10px;text-align:left;vertical-align:top}
+table.m th{background:#faf9f7;font-weight:500}
+</style></helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">KeyFrame v0 — wireframes for the four priority surfaces (IA §9), plus the applicant and SMS surfaces around them</span></div>
+<p class="dv-next" style="margin:0 0 24px">Directions per IA §10: matrix comparison (10.1-A), single-page disclosure (10.2-A), refunds embedded in the selection screen (10.3-A), timeline-default showings (10.4-A). Structure only — no scores, no ranks, no refund-skip control anywhere.</p>
+
+<div class="grp">Landlord dashboard · desktop</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a"><div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>A3-S5 · Pipeline funnel (landing) + dashboard shell</div>
+<div class="dv-card wf" style="width:1080px">
+<div class="nav"><div class="nt">Properties</div><div class="nt on">Pipeline</div><div class="nt">Tickets</div><div class="nt">Chat</div><div class="nt">Settings</div><div style="flex:1"></div><div class="nt">⚙</div></div>
+<div style="padding:20px 22px;display:flex;flex-direction:column;gap:18px">
+<div style="display:flex;align-items:center;gap:12px"><div style="font-size:17px;font-weight:600">Pipeline</div><div class="chip">Property A · Unit 2 ▾</div><div class="chip">All properties</div><div style="flex:1"></div><span class="ref">A3-S5</span></div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+<div class="b" style="padding:13px"><div class="lbl">Inquiries</div><div style="font-size:30px;font-weight:600;margin-top:7px">24</div></div>
+<div class="b" style="padding:13px"><div class="lbl">Auto-declined</div><div style="font-size:30px;font-weight:600;margin-top:7px">11</div><div style="font-size:9.5px;color:#8a8680">pre-fee · no refund</div></div>
+<div class="b" style="padding:13px"><div class="lbl">Qualified</div><div style="font-size:30px;font-weight:600;margin-top:7px">13</div></div>
+<div class="b" style="padding:13px"><div class="lbl">Showed</div><div style="font-size:30px;font-weight:600;margin-top:7px">8</div></div>
+<div class="b" style="padding:13px;border-color:#1a1a1a"><div class="lbl" style="color:#1a1a1a">Interviewed</div><div style="font-size:30px;font-weight:600;margin-top:7px">5</div></div>
+</div>
+<div class="b" style="padding:0">
+<div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-bottom:1px solid #ddd9d2;background:#faf9f7"><div class="lbl">Stage: showed (8)</div><div style="flex:1"></div><div class="chip">Sort: recent ▾</div></div>
+<table class="m" style="border:0">
+<tr><th style="border-left:0;width:30%">Lead</th><th>Status</th><th>Showing</th><th>Host read</th><th style="border-right:0;width:22%">Next</th></tr>
+<tr><td style="border-left:0">Lead 01</td><td>showed</td><td>Mar 4, 10:00</td><td>Y · would rent: Yes</td><td style="border-right:0"><span class="btn" style="padding:4px 9px">Invite to apply</span></td></tr>
+<tr><td style="border-left:0">Lead 02</td><td>showed</td><td>Mar 4, 11:30</td><td>Y · would rent: Maybe</td><td style="border-right:0"><span class="btn" style="padding:4px 9px">Invite to apply</span></td></tr>
+<tr><td style="border-left:0">Lead 03 <span class="chip" style="padding:2px 6px;font-size:8.5px">no-show ×2</span></td><td>scheduled</td><td>Mar 5, 09:00</td><td>—</td><td style="border-right:0"><span style="color:#8a8680">deprioritized <span class="ref" style="color:#8a8680;background:#f6f5f2;border-color:#e3e0da">A4-S7</span></span></td></tr>
+<tr><td style="border-left:0">Lead 04</td><td>showed</td><td>Mar 5, 14:00</td><td>N · did not show</td><td style="border-right:0">—</td></tr>
+</table>
+</div>
+<div style="display:flex;align-items:center;gap:10px"><div class="hand">↑ counts are drill-down only — nothing here scores or orders people</div></div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1b"><div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>A5-S1 · Batch invite selector</div>
+<div class="dv-card wf" style="width:640px">
+<div class="nav"><div class="nt">Properties</div><div class="nt on">Pipeline</div><div class="nt">Tickets</div><div class="nt">Chat</div><div class="nt">Settings</div></div>
+<div style="padding:20px 22px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:16px;font-weight:600">Invite to apply</div><div style="flex:1"></div><span class="ref">A5-S1</span></div>
+<div style="font-size:11px;color:#5c584f;line-height:1.6">Everyone you select applies in parallel. Select as many as are worth considering.</div>
+<div class="b" style="padding:0">
+<div style="display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid #ddd9d2;background:#faf9f7"><div class="lbl" style="width:14px">☑</div><div class="lbl" style="flex:1">Candidate</div><div class="lbl" style="width:110px">Host read</div><div class="lbl" style="width:70px">Interview</div></div>
+<div style="display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid #eae7e1;background:#f5f8fd"><div style="width:14px">☑</div><div style="flex:1">Lead 01</div><div style="width:110px;color:#5c584f">Yes</div><div style="width:70px;color:#5c584f">done</div></div>
+<div style="display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid #eae7e1;background:#f5f8fd"><div style="width:14px">☑</div><div style="flex:1">Lead 02</div><div style="width:110px;color:#5c584f">Maybe</div><div style="width:70px;color:#5c584f">done</div></div>
+<div style="display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid #eae7e1;background:#f5f8fd"><div style="width:14px">☑</div><div style="flex:1">Lead 05</div><div style="width:110px;color:#5c584f">Yes</div><div style="width:70px;color:#8a8680">—</div></div>
+<div style="display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid #eae7e1"><div style="width:14px">☐</div><div style="flex:1">Lead 06</div><div style="width:110px;color:#5c584f">Maybe</div><div style="width:70px;color:#8a8680">—</div></div>
+<div style="display:flex;gap:10px;padding:11px 12px"><div style="width:14px">☐</div><div style="flex:1">Lead 08</div><div style="width:110px;color:#8a8680">—</div><div style="width:70px;color:#8a8680">—</div></div>
+</div>
+<div class="b" style="padding:10px 12px;background:#faf9f7;display:flex;gap:10px;align-items:center"><div class="lbl">Criteria published</div><div style="font-size:11px">Yes · fee $52 set</div><div style="flex:1"></div><a href="#" style="font-size:10.5px">Review criteria</a></div>
+<div style="display:flex;align-items:center;gap:10px"><div style="font-size:11px;color:#8a8680">3 selected</div><div style="flex:1"></div><span class="btn">Cancel</span><span class="btnp">Invite 3 to apply →</span></div>
+<div class="hand">no per-candidate ordering, no “invite one at a time” mode</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1c"><div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>A5-S1a · Refund-obligation interstitial (before send)</div>
+<div class="dv-card wf" style="width:560px">
+<div style="background:#e9e6e0;padding:14px;display:flex;justify-content:center">
+<div style="background:#fff;border:1px solid #c9c5bd;border-radius:6px;width:100%;padding:22px 24px;display:flex;flex-direction:column;gap:15px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:15px;font-weight:600">Before you send</div><div style="flex:1"></div><span class="ref">A5-S1a</span></div>
+<div class="b" style="padding:14px;background:#faf9f7;font-size:12.5px;line-height:1.6">You'll refund the application fee in full to anyone you don't select, automatically.</div>
+<div style="font-size:11px;line-height:1.65;color:#5c584f">Screening runs in parallel, so a wider pool costs you time, not money — only the applicant you select keeps a paid fee. Refunds fire on their own; you don't track them.</div>
+<div style="display:flex;gap:16px">
+<div class="b" style="flex:1;padding:11px"><div class="lbl">Inviting</div><div style="font-size:20px;font-weight:600;margin-top:5px">3</div></div>
+<div class="b" style="flex:1;padding:11px"><div class="lbl">Fee each</div><div style="font-size:20px;font-weight:600;margin-top:5px">$52</div></div>
+<div class="b" style="flex:1;padding:11px"><div class="lbl">Net cost if you sign 1</div><div style="font-size:20px;font-weight:600;margin-top:5px">$0</div></div>
+</div>
+<div style="display:flex;gap:9px;align-items:center"><span class="btn">← Adjust selection</span><div style="flex:1"></div><span class="btnp">Confirm &amp; send 3 invites</span></div>
+</div>
+</div>
+</div></div>
+
+</div>
+
+
+<div class="grp">Comparison, selection, refunds — the core surface</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1d"><div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>A5-S6 · Criteria matrix, screening in progress</div>
+<div class="dv-card wf" style="width:980px">
+<div class="nav"><div class="nt">Properties</div><div class="nt on">Pipeline</div><div class="nt">Tickets</div><div class="nt">Chat</div><div class="nt">Settings</div></div>
+<div style="padding:20px 22px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:16px;font-weight:600">Applications · Property A, Unit 2</div><div style="flex:1"></div><span class="ref">A5-S6</span></div>
+<div class="b" style="padding:10px 13px;display:flex;gap:22px;align-items:center;background:#faf9f7">
+<div><span class="lbl">Invited</span> <span style="font-weight:600">3</span></div><div style="color:#ddd9d2">|</div>
+<div><span class="lbl">Results in</span> <span style="font-weight:600">2</span></div><div style="color:#ddd9d2">|</div>
+<div><span class="lbl">Pending</span> <span style="font-weight:600">1</span></div><div style="flex:1"></div>
+<div style="font-size:10.5px;color:#8a8680">Pipeline state only</div>
+</div>
+<table class="m">
+<tr><th style="width:210px">Your published criteria <span class="ref" style="margin-left:4px">A3-S1</span></th>
+<th style="width:24%">Applicant A</th><th style="width:24%">Applicant B</th><th style="width:24%">Applicant C</th></tr>
+<tr><td style="background:#faf9f7"><div class="lbl">Status</div></td>
+<td>complete</td><td>complete</td><td style="color:#8a8680">pending · report expected</td></tr>
+<tr><td>Income ≥ 3.0× rent</td><td>✓ meets</td><td>✓ meets</td><td class="ph" style="height:38px">awaiting</td></tr>
+<tr><td>Credit score ≥ 650</td><td>✓ meets</td><td>✗ below (612)</td><td class="ph" style="height:38px">awaiting</td></tr>
+<tr><td>No eviction in 5 yrs</td><td>✓ meets</td><td>✓ meets</td><td class="ph" style="height:38px">awaiting</td></tr>
+<tr><td>Move-in by Apr 15</td><td>✓ meets</td><td>✓ meets</td><td class="ph" style="height:38px">awaiting</td></tr>
+<tr><td>Occupancy ≤ 3</td><td>✓ meets</td><td>✓ meets</td><td class="ph" style="height:38px">awaiting</td></tr>
+<tr><td>Pets: cats only</td><td>✓ meets</td><td>✓ meets</td><td class="ph" style="height:38px">awaiting</td></tr>
+<tr><td style="background:#faf9f7"><div class="lbl">Host read</div><span class="ref">A4-S6</span></td><td>Showed · would rent: Yes</td><td>Showed · would rent: Maybe</td><td>Showed · would rent: Yes</td></tr>
+<tr><td style="background:#faf9f7"><div class="lbl">Interview</div></td><td><span class="btn" style="padding:4px 9px">Prep sheet</span></td><td><span class="btn" style="padding:4px 9px">Prep sheet</span></td><td><span class="btn" style="padding:4px 9px">Prep sheet</span></td></tr>
+<tr><td style="background:#faf9f7"><div class="lbl">Fee</div></td><td>$52 charged</td><td>$52 charged</td><td>Portable report · no fee <span class="ref">A5-S4b</span></td></tr>
+<tr><td style="background:#faf9f7"><div class="lbl">Decision</div></td>
+<td><span class="btnp" style="width:100%;justify-content:center">Select</span></td>
+<td><span class="btnp" style="width:100%;justify-content:center">Select</span></td>
+<td><span class="btnd" style="width:100%;justify-content:center">Select</span></td></tr>
+</table>
+<div class="hand">no composite score, no grade, no default row order — cells are pass/fail against the landlord's own written criteria</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1e"><div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>A5-S7 + A5-S9 · After selection — refunds embedded in the same screen</div>
+<div class="dv-card wf" style="width:980px">
+<div class="nav"><div class="nt">Properties</div><div class="nt on">Pipeline</div><div class="nt">Tickets</div><div class="nt">Chat</div><div class="nt">Settings</div></div>
+<div style="padding:20px 22px;display:flex;flex-direction:column;gap:16px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:16px;font-weight:600">Applications · Property A, Unit 2</div><div style="flex:1"></div><span class="ref">A5-S7 · A5-S9</span></div>
+<div class="b" style="padding:13px;border-color:#1a1a1a;display:flex;gap:14px;align-items:center">
+<div style="flex:1"><div class="lbl" style="color:#1a1a1a">Selected</div><div style="font-size:14px;font-weight:600;margin-top:4px">Applicant A</div></div>
+<div style="flex:1"><div class="lbl">Lease</div><div style="margin-top:4px">drafted → sent · awaiting signature</div></div>
+<span class="btn">View lease <span class="ref">A5-S13</span></span>
+</div>
+<div>
+<div class="lbl" style="margin-bottom:7px">Not selected — refunds</div>
+<table class="m">
+<tr><th style="width:22%">Applicant</th><th style="width:14%">Fee</th><th style="width:22%">Refund status</th><th style="width:20%">Deadline</th><th>Applicant notified</th></tr>
+<tr><td>Applicant B</td><td>$52</td><td>refund_initiated</td><td><span style="font-weight:600">5 days left</span></td><td>Sent on signing <span class="ref">A5-S10</span></td></tr>
+<tr><td>Applicant C</td><td style="color:#8a8680">none (portable)</td><td style="color:#8a8680">n/a</td><td style="color:#8a8680">—</td><td>Decline sent</td></tr>
+</table>
+</div>
+<div class="b" style="padding:11px 13px;background:#faf9f7;font-size:11px;line-height:1.6;color:#5c584f">Decline notice and refund confirmation go out as one message when the lease is signed. Nothing to approve here.</div>
+<div style="display:flex;gap:26px;align-items:flex-start">
+<div class="hand" style="flex:1">days remaining, never a raw date — deadline is min(submitted+30d, selected+7d)</div>
+<div class="hand" style="flex:1">no control on this screen can skip, deny, or delay a refund</div>
+</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1f"><div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>A5-S11 · Refund failure — interruptive, not a dashboard row</div>
+<div class="dv-card wf" style="width:520px">
+<div style="background:#e9e6e0;padding:14px;display:flex;justify-content:center">
+<div style="background:#fff;border:2px solid #1a1a1a;border-radius:6px;width:100%;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:15px;font-weight:600">A refund couldn't be sent</div><div style="flex:1"></div><span class="ref">A5-S11</span></div>
+<div class="b" style="padding:12px;background:#faf9f7">
+<div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Applicant</span><span>Applicant B</span></div>
+<div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Amount owed</span><span style="font-weight:600">$52.00</span></div>
+<div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Reason</span><span>Stripe balance insufficient</span></div>
+<div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Deadline</span><span style="font-weight:600">5 days left</span></div>
+</div>
+<div style="font-size:11px;line-height:1.6;color:#5c584f">Fee collection on this property is paused until this clears.</div>
+<div style="display:flex;flex-direction:column;gap:8px"><span class="btnp" style="justify-content:center">Charge backup payment method</span><span class="btn" style="justify-content:center">Add funds &amp; retry</span></div>
+<div class="hand">blocking modal + push + SMS — cannot be dismissed to a passive state</div>
+</div>
+</div>
+</div></div>
+
+</div>
+
+<div class="grp">Showings</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1g"><div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>A4-S4 · Showings — Timeline default, List / Board toggle</div>
+<div class="dv-card wf" style="width:820px">
+<div class="nav"><div class="nt">Properties</div><div class="nt on">Pipeline</div><div class="nt">Tickets</div><div class="nt">Chat</div><div class="nt">Settings</div></div>
+<div style="padding:20px 22px;display:flex;flex-direction:column;gap:15px">
+<div style="display:flex;align-items:center;gap:10px"><div style="font-size:16px;font-weight:600">Showings</div>
+<div style="flex:1"></div>
+<div style="display:flex;border:1px solid #d5d2cb;border-radius:4px;overflow:hidden"><div style="padding:6px 12px;font-size:10.5px;color:#8a8680">List</div><div style="padding:6px 12px;font-size:10.5px;color:#8a8680;border-left:1px solid #d5d2cb">Board</div><div style="padding:6px 12px;font-size:10.5px;background:#1a1a1a;color:#fff;border-left:1px solid #1a1a1a">Timeline</div></div>
+<span class="ref">A4-S4</span></div>
+<div style="display:flex;gap:9px;align-items:center"><div class="chip">All properties ▾</div><div class="chip">Host: any ▾</div><div class="chip" style="border-color:#1a1a1a;color:#1a1a1a">Next 7 days</div></div>
+<div class="b" style="padding:0">
+<div style="padding:8px 12px;background:#faf9f7;border-bottom:1px solid #ddd9d2" class="lbl">Wed · Mar 4</div>
+<div style="display:flex;border-bottom:1px solid #eae7e1"><div style="width:78px;padding:12px;border-right:1px solid #eae7e1;background:#fcfbf9">10:00</div><div style="padding:12px;flex:1;display:flex;gap:12px;align-items:center"><div style="flex:1"><div>Lead 01 · Property A, Unit 2</div><div style="font-size:10px;color:#8a8680">Host: Trusted Individual 1 · confirmed both sides</div></div><span class="chip">confirmed</span></div></div>
+<div style="display:flex;border-bottom:1px solid #eae7e1"><div style="width:78px;padding:12px;border-right:1px solid #eae7e1;background:#fcfbf9">11:30</div><div style="padding:12px;flex:1;display:flex;gap:12px;align-items:center"><div style="flex:1"><div>Lead 02 · Property A, Unit 2</div><div style="font-size:10px;color:#8a8680">Host: Trusted Individual 1 · read pending</div></div><span class="chip" style="border-color:#1a1a1a;color:#1a1a1a">read due</span></div></div>
+<div style="padding:8px 12px;background:#faf9f7;border-bottom:1px solid #ddd9d2;border-top:1px solid #ddd9d2" class="lbl">Thu · Mar 5</div>
+<div style="display:flex;border-bottom:1px solid #eae7e1"><div style="width:78px;padding:12px;border-right:1px solid #eae7e1;background:#fcfbf9">09:00</div><div style="padding:12px;flex:1;display:flex;gap:12px;align-items:center"><div style="flex:1"><div>Lead 03 · Property B</div><div style="font-size:10px;color:#8a8680">Host: you · reminder sends 8:00</div></div><span class="chip">scheduled</span></div></div>
+<div style="display:flex"><div style="width:78px;padding:12px;border-right:1px solid #eae7e1;background:#fcfbf9">14:00</div><div style="padding:12px;flex:1;display:flex;gap:12px;align-items:center"><div style="flex:1"><div>Lead 04 · Property B</div><div style="font-size:10px;color:#8a8680">Host: you</div></div><span class="chip">no-show</span></div></div>
+</div>
+<div class="b" style="padding:11px 13px;display:flex;gap:12px;align-items:center;background:#faf9f7"><div class="lbl">Host availability</div><div style="font-size:11px">Trusted Individual 1 — Wed 9–1, Thu 4–7</div><div style="flex:1"></div><span class="btn" style="padding:5px 10px">Ask for more <span class="ref">A4-S2</span></span></div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1h"><div class="dv-olabel"><a class="dv-oid" href="#1h">1h</a>A4-S6 · Post-showing read card, and its guard state</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div class="dv-card wf" style="width:420px">
+<div style="padding:18px 20px;display:flex;flex-direction:column;gap:13px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:14px;font-weight:600">Host read · Lead 02</div><div style="flex:1"></div><span class="ref">A4-S6</span></div>
+<div style="font-size:10px;color:#8a8680">Trusted Individual 1 · Mar 4, 12:05</div>
+<div class="b" style="padding:0">
+<div style="display:flex;padding:11px 13px;border-bottom:1px solid #eae7e1"><div style="flex:1"><div class="lbl">Did they show up</div></div><div style="font-weight:600">Yes</div></div>
+<div style="display:flex;padding:11px 13px;border-bottom:1px solid #eae7e1"><div style="flex:1"><div class="lbl">Would you rent to them</div></div><div style="font-weight:600">Maybe</div></div>
+<div style="padding:11px 13px"><div class="lbl" style="margin-bottom:6px">Notes</div><div style="font-size:11px;line-height:1.6;color:#5c584f">[free-text reply from host, shown after the compliance guard clears]</div></div>
+</div>
+<div style="display:flex;gap:9px"><span class="btn" style="padding:5px 10px">Attach to lead</span><span class="btn" style="padding:5px 10px">Interview prep</span></div>
+</div>
+</div>
+<div class="dv-card wf" style="width:420px">
+<div style="padding:18px 20px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:14px;font-weight:600">Host read · Lead 05</div><div style="flex:1"></div><span class="ref">guard state</span></div>
+<div class="b" style="padding:0">
+<div style="display:flex;padding:11px 13px;border-bottom:1px solid #eae7e1"><div style="flex:1"><div class="lbl">Did they show up</div></div><div style="font-weight:600">Yes</div></div>
+<div style="display:flex;padding:11px 13px;border-bottom:1px solid #eae7e1"><div style="flex:1"><div class="lbl">Would you rent to them</div></div><div style="font-weight:600">Yes</div></div>
+<div style="padding:11px 13px"><div class="lbl" style="margin-bottom:6px">Notes</div><div class="ph" style="height:46px">reviewing note · available shortly</div></div>
+</div>
+<div class="hand">structured answers land instantly; free text waits for the guard — never free text alone</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="grp">Landlord dashboard · phone (PWA)</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1i"><div class="dv-olabel"><a class="dv-oid" href="#1i">1i</a>A3-S5 · Pipeline on phone</div>
+<div class="dv-card wf" style="width:340px">
+<div style="padding:14px 15px;border-bottom:1px solid #ddd9d2;display:flex;align-items:center;gap:9px"><div style="font-size:14px;font-weight:600">Pipeline</div><div style="flex:1"></div><div class="chip" style="padding:3px 8px">Property A ▾</div></div>
+<div style="padding:14px 15px;display:flex;flex-direction:column;gap:12px">
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+<div class="b" style="padding:10px"><div class="lbl">Inquiries</div><div style="font-size:22px;font-weight:600;margin-top:4px">24</div></div>
+<div class="b" style="padding:10px"><div class="lbl">Auto-declined</div><div style="font-size:22px;font-weight:600;margin-top:4px">11</div></div>
+<div class="b" style="padding:10px"><div class="lbl">Qualified</div><div style="font-size:22px;font-weight:600;margin-top:4px">13</div></div>
+<div class="b" style="padding:10px"><div class="lbl">Showed</div><div style="font-size:22px;font-weight:600;margin-top:4px">8</div></div>
+</div>
+<div class="b" style="padding:11px;border-color:#1a1a1a;display:flex;align-items:center;gap:10px"><div style="flex:1"><div class="lbl" style="color:#1a1a1a">Needs you</div><div style="font-size:11px;margin-top:3px">3 applications ready to compare</div></div><span style="font-size:15px">›</span></div>
+<div class="b" style="padding:0">
+<div style="padding:9px 11px;background:#faf9f7;border-bottom:1px solid #ddd9d2" class="lbl">Showed (8)</div>
+<div style="padding:11px;border-bottom:1px solid #eae7e1;display:flex;gap:8px"><div style="flex:1">Lead 01<div style="font-size:10px;color:#8a8680">read: Yes · Mar 4</div></div><span style="font-size:14px">›</span></div>
+<div style="padding:11px;border-bottom:1px solid #eae7e1;display:flex;gap:8px"><div style="flex:1">Lead 02<div style="font-size:10px;color:#8a8680">read: Maybe · Mar 4</div></div><span style="font-size:14px">›</span></div>
+<div style="padding:11px;display:flex;gap:8px"><div style="flex:1">Lead 04<div style="font-size:10px;color:#8a8680">did not show · Mar 5</div></div><span style="font-size:14px">›</span></div>
+</div>
+</div>
+<div style="display:flex;border-top:1px solid #ddd9d2;background:#faf9f7">
+<div style="flex:1;padding:11px 0;text-align:center;font-size:9px;color:#8a8680">Props</div>
+<div style="flex:1;padding:11px 0;text-align:center;font-size:9px;color:#1a1a1a;font-weight:600;border-top:2px solid #1a1a1a;margin-top:-1px">Pipeline</div>
+<div style="flex:1;padding:11px 0;text-align:center;font-size:9px;color:#8a8680">Tickets</div>
+<div style="flex:1;padding:11px 0;text-align:center;font-size:9px;color:#8a8680">Chat</div>
+<div style="flex:1;padding:11px 0;text-align:center;font-size:9px;color:#8a8680">Settings</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1j"><div class="dv-olabel"><a class="dv-oid" href="#1j">1j</a>A5-S6 · Matrix on phone — criteria pinned, applicants swipe horizontally</div>
+<div class="dv-card wf" style="width:340px">
+<div style="padding:14px 15px;border-bottom:1px solid #ddd9d2;display:flex;align-items:center;gap:8px"><span style="font-size:14px">‹</span><div style="font-size:13px;font-weight:600">Applications · 3</div><div style="flex:1"></div><span class="ref">A5-S6</span></div>
+<div style="padding:9px 15px;border-bottom:1px solid #eae7e1;font-size:10px;color:#8a8680">Invited 3 · results in 2 · pending 1</div>
+<div style="display:flex;overflow:hidden;align-items:stretch">
+<div style="display:grid;grid-template-columns:106px 88px 88px;flex:none">
+<div style="height:38px;box-sizing:border-box;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7"></div>
+<div style="height:38px;box-sizing:border-box;padding:11px 10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10.5px;font-weight:600">Applic. A</div>
+<div style="height:38px;box-sizing:border-box;padding:11px 10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10.5px;font-weight:600">Applic. B</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7;font-size:10px">Income ≥ 3.0×</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7;font-size:10px">Credit ≥ 650</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✗ 612</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7;font-size:10px">No eviction 5y</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7;font-size:10px">Move-in ≤ Apr 15</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7;font-size:10px">Occupancy ≤ 3</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;border-bottom:1px solid #eae7e1;background:#faf9f7;font-size:10px">Pets: cats</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;border-bottom:1px solid #eae7e1;font-size:10px">✓</div>
+
+<div style="padding:10px;border-right:1px solid #ddd9d2;background:#faf9f7;font-size:10px">Host read</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;font-size:9.5px">Yes</div>
+<div style="padding:10px;border-right:1px solid #eae7e1;font-size:9.5px">Maybe</div>
+</div>
+<div style="width:88px;flex:none;display:flex;flex-direction:column">
+<div style="height:38px;box-sizing:border-box;padding:11px 10px;border-bottom:1px solid #eae7e1;font-size:10.5px;font-weight:600;color:#8a8680">Applic. C</div>
+<div class="ph" style="flex:1;border:0">pending</div>
+</div>
+</div>
+<div style="padding:7px 15px;border-top:1px solid #eae7e1;display:flex;align-items:center;justify-content:center;gap:7px;font-size:9px;color:#8a8680;background:#faf9f7">‹ swipe for applicants ›<span style="letter-spacing:2px">●●○</span></div>
+<div style="padding:13px 15px;border-top:1px solid #ddd9d2;display:flex;flex-direction:column;gap:8px">
+<span class="btnp" style="justify-content:center">Select an applicant</span>
+<div style="font-size:9.5px;color:#8a8680;text-align:center">Selecting refunds everyone else automatically</div>
+</div>
+</div></div>
+
+</div>
+
+<div class="grp">Applicant · hosted web links (no account)</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1k"><div class="dv-olabel"><a class="dv-oid" href="#1k">1k</a>A5-S3 · Pre-charge disclosure — the money screen</div>
+<div class="dv-card wf" style="width:360px">
+<div style="padding:10px 15px;background:#faf9f7;border-bottom:1px solid #ddd9d2;display:flex;align-items:center;gap:8px"><div style="font-size:10px;color:#8a8680">keyframe.link/apply/••••</div><div style="flex:1"></div><span class="ref">A5-S3</span></div>
+<div style="padding:18px 16px;display:flex;flex-direction:column;gap:15px">
+<div><div style="font-size:15px;font-weight:600;line-height:1.35">Apply for Property A, Unit 2</div><div style="font-size:10.5px;color:#8a8680;margin-top:4px">Invited by the owner · unit confirmed available</div></div>
+
+<div class="b" style="padding:13px">
+<div class="lbl">Application fee</div>
+<div style="display:flex;align-items:baseline;gap:8px;margin-top:5px"><div style="font-size:26px;font-weight:600">$52</div><div style="font-size:10.5px;color:#8a8680">itemized before you pay</div></div>
+<div style="height:1px;background:#eae7e1;margin:12px 0"></div>
+<div class="lbl">Refunded in full if you're not selected</div>
+<div style="font-size:11px;line-height:1.6;margin-top:5px">Automatic. Within 7 days of the owner choosing someone, or 30 days of your application, whichever is sooner.</div>
+</div>
+
+<div>
+<div class="lbl" style="margin-bottom:8px">What you'll be measured against</div>
+<div class="b" style="padding:0">
+<div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ Income at least 3.0× the rent</div>
+<div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ Credit score 650 or above</div>
+<div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ No eviction in the last 5 years</div>
+<div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ Move-in on or before Apr 15</div>
+<div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ No more than 3 occupants</div>
+<div style="padding:9px 11px;font-size:11px">☐ Cats permitted, no dogs</div>
+</div>
+<div style="font-size:9.5px;color:#8a8680;margin-top:6px">Applied identically to every applicant.</div>
+</div>
+
+<div>
+<div class="lbl" style="margin-bottom:8px">Your rights</div>
+<div style="font-size:11px;line-height:1.7;color:#5c584f">A copy of your credit report, sent to you automatically · An itemized receipt · A full refund if you're not selected</div>
+</div>
+
+<div class="b" style="padding:12px;background:#faf9f7">
+<div style="font-size:11px;line-height:1.6">Already have a reusable screening report from the last 30 days? You can't be charged for one.</div>
+<span class="btn" style="margin-top:10px;width:100%;justify-content:center;background:#fff">Use my portable report instead</span>
+</div>
+
+<span class="btnp" style="justify-content:center;padding:12px">Continue to payment →</span>
+<div style="font-size:9.5px;color:#8a8680;text-align:center">Reply STOP to any text to opt out.</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1l"><div class="dv-olabel"><a class="dv-oid" href="#1l">1l</a>A5-S3 · Hard-block state (criteria or fee unset)</div>
+<div class="dv-card wf" style="width:360px">
+<div style="padding:10px 15px;background:#faf9f7;border-bottom:1px solid #ddd9d2;font-size:10px;color:#8a8680">keyframe.link/apply/••••</div>
+<div style="padding:18px 16px;display:flex;flex-direction:column;gap:15px">
+<div style="font-size:15px;font-weight:600">Apply for Property A, Unit 2</div>
+<div class="b" style="padding:13px"><div class="lbl">Application fee</div><div class="ph" style="height:34px;margin-top:6px">not published</div></div>
+<div><div class="lbl" style="margin-bottom:8px">What you'll be measured against</div><div class="ph" style="height:96px">screening criteria not published</div></div>
+<span class="btnd" style="justify-content:center;padding:12px">Continue to payment</span>
+<div style="font-size:11px;line-height:1.6;color:#5c584f;text-align:center">This application can't take payment yet. The owner has been notified.</div>
+<div class="hand">disabled from render — never a validation error after a tap</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1m"><div class="dv-olabel"><a class="dv-oid" href="#1m">1m</a>A5-S4a / A5-S4b / A5-S5 · Pay, portable-report intake, receipt</div>
+<div style="display:flex;gap:14px">
+<div class="dv-card wf" style="width:300px">
+<div style="padding:10px 14px;background:#faf9f7;border-bottom:1px solid #ddd9d2;display:flex;gap:8px"><div style="font-size:10px;color:#8a8680">Stripe Checkout</div><div style="flex:1"></div><span class="ref">A5-S4a</span></div>
+<div style="padding:16px 15px;display:flex;flex-direction:column;gap:13px">
+<div style="font-size:13px;font-weight:600">Application fee · $52.00</div>
+<div class="b" style="padding:0">
+<div style="display:flex;justify-content:space-between;padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px"><span>Credit &amp; background report</span><span>$38.00</span></div>
+<div style="display:flex;justify-content:space-between;padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px"><span>Time reasonably spent</span><span>$14.00</span></div>
+<div style="display:flex;justify-content:space-between;padding:9px 11px;font-size:11px;font-weight:600"><span>Total</span><span>$52.00</span></div>
+</div>
+<div style="font-size:9.5px;color:#8a8680">Within the statutory cap for this property's jurisdiction.</div>
+<div class="ph" style="height:74px">card fields · Stripe-hosted</div>
+<span class="btnp" style="justify-content:center;padding:11px">Pay $52.00</span>
+</div>
+</div>
+<div style="display:flex;flex-direction:column;gap:14px">
+<div class="dv-card wf" style="width:300px">
+<div style="padding:10px 14px;background:#faf9f7;border-bottom:1px solid #ddd9d2;display:flex;gap:8px"><div style="font-size:10px;color:#8a8680">Portable report</div><div style="flex:1"></div><span class="ref">A5-S4b</span></div>
+<div style="padding:16px 15px;display:flex;flex-direction:column;gap:12px">
+<div style="font-size:12.5px;line-height:1.5">Submit your reusable report — no fee will be charged.</div>
+<div class="ph" style="height:66px">upload file, or paste report link</div>
+<div class="b" style="padding:10px;font-size:10.5px;line-height:1.55;background:#faf9f7">Must be dated within the last 30 days and cover credit, criminal, and eviction history.</div>
+<span class="btnp" style="justify-content:center;padding:11px">Submit report</span>
+</div>
+</div>
+<div class="dv-card wf" style="width:300px">
+<div style="padding:10px 14px;background:#faf9f7;border-bottom:1px solid #ddd9d2;display:flex;gap:8px"><div style="font-size:10px;color:#8a8680">Receipt</div><div style="flex:1"></div><span class="ref">A5-S5</span></div>
+<div style="padding:16px 15px;display:flex;flex-direction:column;gap:9px">
+<div style="font-size:12.5px;font-weight:600">Paid · $52.00</div>
+<div style="font-size:10.5px;color:#8a8680;line-height:1.6">Itemized receipt sent by text and email. Your credit report follows automatically once results return.</div>
+<div class="ph" style="height:44px">itemized lines · date · property</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1n"><div class="dv-olabel"><a class="dv-oid" href="#1n">1n</a>A5-S14 · Deposit checkout, and the jurisdiction block</div>
+<div style="display:flex;gap:14px">
+<div class="dv-card wf" style="width:300px">
+<div style="padding:10px 14px;background:#faf9f7;border-bottom:1px solid #ddd9d2;display:flex;gap:8px"><div style="font-size:10px;color:#8a8680">California property</div><div style="flex:1"></div><span class="ref">A5-S14</span></div>
+<div style="padding:16px 15px;display:flex;flex-direction:column;gap:12px">
+<div style="font-size:13px;font-weight:600">Move-in payment</div>
+<div class="b" style="padding:0">
+<div style="display:flex;justify-content:space-between;padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px"><span>Security deposit</span><span>$2,400</span></div>
+<div style="display:flex;justify-content:space-between;padding:9px 11px;font-size:11px"><span>First month's rent</span><span>$2,400</span></div>
+</div>
+<div class="b" style="padding:11px;font-size:10.5px;line-height:1.65;background:#faf9f7">Your deposit is returned with an itemized statement within 21 days of move-out. Dated move-in photos will be taken and shared with you.</div>
+<span class="btnp" style="justify-content:center;padding:11px">Pay $4,800</span>
+</div>
+</div>
+<div class="dv-card wf" style="width:300px">
+<div style="padding:10px 14px;background:#faf9f7;border-bottom:1px solid #ddd9d2;display:flex;gap:8px"><div style="font-size:10px;color:#8a8680">Chicago / Cook County</div><div style="flex:1"></div><span class="ref">§7</span></div>
+<div style="padding:16px 15px;display:flex;flex-direction:column;gap:12px">
+<div style="font-size:13px;font-weight:600">Move-in payment</div>
+<div class="ph" style="height:74px">deposit collection unavailable<br>in this jurisdiction</div>
+<div class="b" style="padding:11px;font-size:10.5px;line-height:1.65">Local law requires the deposit be held in a segregated, interest-bearing account. The owner will arrange it with you directly.</div>
+<span class="btnd" style="justify-content:center;padding:11px">Pay deposit</span>
+<div style="font-size:10.5px">First month's rent can still be paid here.</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="grp">SMS threads · lead, trusted individual, tenant</div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1o"><div class="dv-olabel"><a class="dv-oid" href="#1o">1o</a>Lead → applicant thread (A3-S2 → A5-S10)</div>
+<div class="dv-card wf" style="width:330px">
+<div style="padding:11px 14px;border-bottom:1px solid #ddd9d2;background:#fff;display:flex;gap:8px;align-items:center"><div style="font-size:12px;font-weight:600">(555) 010-0100</div><div style="flex:1"></div><div style="font-size:9px;color:#8a8680">Property A line</div></div>
+<div class="sms">
+<div class="tstamp">A3-S2 · pre-qualification</div>
+<div class="bin">Hi — this is the leasing assistant for Property A, Unit 2. A few quick questions before we book a showing. Reply STOP to opt out.<br><br>What's your approximate monthly household income?</div>
+<div class="bout">[income]</div>
+<div class="bin">Thanks. Any evictions in the last 5 years?</div>
+<div class="bout">No</div>
+<div class="tstamp">A4-S4 · showing offer</div>
+<div class="bin">You're pre-qualified. Open times: Wed 10:00, Wed 11:30, Thu 9:00. Reply with one, or ask for another time.</div>
+<div class="bout">Wed 10:00</div>
+<div class="bin">Booked — Wed 10:00, [address]. You'll be met by [host first name]. Reminder the morning of.</div>
+<div class="tstamp">A5-S2 · invitation to apply</div>
+<div class="bin">The owner would like you to apply. The fee is $52 and is refunded in full if you're not selected. Criteria and your rights are on this page: keyframe.link/apply/••••</div>
+<div class="tstamp">A5-S10 · combined decline + refund</div>
+<div class="bin">The owner has signed another applicant, so you weren't selected this time. Your $52 fee is being refunded in full to the card ending ••42 — no action needed.</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1p"><div class="dv-olabel"><a class="dv-oid" href="#1p">1p</a>Trusted Individual thread (A1-S5 → A4-S6)</div>
+<div class="dv-card wf" style="width:330px">
+<div style="padding:11px 14px;border-bottom:1px solid #ddd9d2;display:flex;gap:8px;align-items:center"><div style="font-size:12px;font-weight:600">(555) 010-0100</div><div style="flex:1"></div><div style="font-size:9px;color:#8a8680">Trusted Individual</div></div>
+<div class="sms">
+<div class="tstamp">A4-S2 · intro + availability</div>
+<div class="bin">Hi [name] — [owner] asked if you'd open the door for showings at Unit 2. No app, no login, just texts like this one. Reply STOP to opt out.<br><br>Which blocks work for you this week?</div>
+<div class="bout">Wed 9 to 1, Thu after 4</div>
+<div class="bin">Got it. I'll only book inside those blocks and always confirm with you first.</div>
+<div class="tstamp">A4-S5 · day-of reminder</div>
+<div class="bin">Reminder: showing today 10:00 at Unit 2. You'll be meeting [lead first name].</div>
+<div class="tstamp">A4-S6 · post-showing read</div>
+<div class="bin">Thanks for hosting. Three quick things:<br><br>1. Did they show up? (Y/N)<br>2. Would you rent to them? (Y/N/Maybe)<br>3. Anything else worth passing on?<br><br>Notes are reviewed before they reach the owner.</div>
+<div class="bout">Y<br>Maybe<br>[free text]</div>
+<div class="bin">Thanks — sent to [owner].</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1q"><div class="dv-olabel"><a class="dv-oid" href="#1q">1q</a>Tenant thread — renewal (A1-S2) and maintenance (B1-S1/S2/S3)</div>
+<div class="dv-card wf" style="width:330px">
+<div style="padding:11px 14px;border-bottom:1px solid #ddd9d2;display:flex;gap:8px;align-items:center"><div style="font-size:12px;font-weight:600">(555) 010-0100</div><div style="flex:1"></div><div style="font-size:9px;color:#8a8680">Current tenant</div></div>
+<div class="sms">
+<div class="tstamp">A1-S2 · renewal check-in</div>
+<div class="bin">Hi [name] — your lease at Unit 2 ends [date]. Are you planning to renew, leave, or still deciding? Reply STOP to opt out.</div>
+<div class="bout">Leaving</div>
+<div class="bin">Understood. Do you have a move-out date in mind?</div>
+<div class="tstamp">B3-S1 · move-out condition capture</div>
+<div class="bin">A few weeks out I'll walk through room by room with you and ask for photos. Nothing you send affects your deposit — it's so repairs are scheduled before you go.</div>
+<div class="tstamp">B1-S1/S2 · issue intake + troubleshooting</div>
+<div class="bout">The kitchen outlets stopped working</div>
+<div class="bin">Which room, and when did it start? A photo of the outlet helps.</div>
+<div class="bout">[photo] · this morning</div>
+<div class="bin">Try the GFCI reset button on the outlet itself, then the kitchen breaker. Did that restore power?</div>
+<div class="bout">No</div>
+<div class="bin">Thanks — sending this to [owner] with your photos now.</div>
+<div class="tstamp">B1-S3 · hazard bypass</div>
+<div class="bin">You mentioned a gas smell. Leave the unit and call 911 or the gas company now. I've already called and texted [owner].</div>
+</div>
+</div></div>
+
+<div class="dv-opt" id="1r"><div class="dv-olabel"><a class="dv-oid" href="#1r">1r</a>B1-S4 / B2-S2 · Triaged ticket → vendor draft (landlord)</div>
+<div class="dv-card wf" style="width:400px">
+<div style="padding:12px 15px;border-bottom:1px solid #ddd9d2;display:flex;gap:8px;align-items:center"><div style="font-size:13px;font-weight:600">Ticket 014 · Unit 2</div><div style="flex:1"></div><span class="chip" style="border-color:#1a1a1a;color:#1a1a1a">triaged</span></div>
+<div style="padding:16px 15px;display:flex;flex-direction:column;gap:13px">
+<div style="display:flex;gap:8px"><div class="ph" style="flex:1;height:64px">tenant photo</div><div class="ph" style="flex:1;height:64px">tenant photo</div></div>
+<div class="b" style="padding:0">
+<div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Issue</div><div style="flex:1;font-size:11px">Kitchen outlets dead</div></div>
+<div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Since</div><div style="flex:1;font-size:11px">This morning</div></div>
+<div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Tried</div><div style="flex:1;font-size:11px">GFCI reset, breaker — no change</div></div>
+<div style="display:flex;padding:9px 11px;border-bottom:1px solid #eae7e1"><div class="lbl" style="width:96px">Suspected</div><div style="flex:1;font-size:11px">Failed GFCI or upstream wiring</div></div>
+<div style="display:flex;padding:9px 11px"><div class="lbl" style="width:96px">Urgency</div><div style="flex:1;font-size:11px">Same week · not a hazard</div></div>
+</div>
+<div class="b" style="padding:12px">
+<div style="display:flex;align-items:center;gap:8px"><div class="lbl">Suggested vendor</div><div style="flex:1"></div><span class="ref">B2-S2</span></div>
+<div style="font-size:11.5px;margin-top:6px">Vendor 2 · electrical · used 3 times</div>
+<div class="ph" style="height:58px;margin-top:10px">drafted message + photos, editable</div>
+<div style="display:flex;gap:8px;margin-top:10px"><span class="btn" style="padding:5px 10px">Edit</span><span class="btnp" style="padding:5px 10px">Copy message</span><div style="flex:1"></div><span style="font-size:9.5px;color:#8a8680;align-self:center">you send it</span></div>
+</div>
+</div>
+</div></div>
+
+</div>
+
+<p class="dv-next">Try next: "build out A1–A2 and the criteria builder" · "take <a class="dv-oid" href="#1d">1d</a> and <a class="dv-oid" href="#1e">1e</a> to hi-fi" · "show <a class="dv-oid" href="#1g">1g</a> in List and Board views too"</p>
+</section>
+</x-dc>
+</body>
+</html>

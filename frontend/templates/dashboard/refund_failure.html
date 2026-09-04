@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Refund failed{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:520px;background:transparent;border:0;box-shadow:none{% endblock %}
+{% block content %}
+<div style="background:#e9e6e0;padding:14px;display:flex;justify-content:center">
+<div class="wf" style="background:#fff;border:2px solid #1a1a1a;border-radius:6px;width:100%;padding:20px 22px;display:flex;flex-direction:column;gap:14px">
+  <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:15px;font-weight:600">A refund couldn't be sent</div><div style="flex:1"></div><span class="ref">A5-S11</span></div>
+  <div class="b" style="padding:12px;background:#faf9f7">
+    <div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Applicant</span><span>{{ failure.application.fields.Name }}</span></div>
+    <div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Amount owed</span><span style="font-weight:600">{{ failure.fee_display }}</span></div>
+    <div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Reason</span><span>Stripe balance insufficient</span></div>
+    <div style="display:flex;justify-content:space-between;padding:3px 0"><span class="lbl">Deadline</span><span style="font-weight:600">{{ failure.countdown }}</span></div>
+  </div>
+  <div style="font-size:11px;line-height:1.6;color:#5c584f">Fee collection on this property is paused until this clears.</div>
+  <form method="post" action="{{ url_for('applications.refund_failure_retry') }}" style="display:flex;flex-direction:column;gap:8px">
+    <input type="hidden" name="amount" value="{{ failure.fee_display.replace('$','') }}">
+    <input type="hidden" name="stripe_charge_id" value="{{ failure.stripe_charge_id }}">
+    <button type="submit" class="btnp" style="justify-content:center;width:100%">Charge backup payment method</button>
+    <button type="submit" class="btn" style="justify-content:center;width:100%">Add funds &amp; retry</button>
+  </form>
+  {% if not stripe_ready %}
+  <div style="font-size:10.5px;color:#8a8680">Stripe test-mode key not set yet — these buttons will log the failure reason but can't move real money until STRIPE_SECRET_KEY is in .env.</div>
+  {% endif %}
+  <div class="hand">blocking modal + push + SMS — cannot be dismissed to a passive state</div>
+</div>
+</div>
+{% endblock %}

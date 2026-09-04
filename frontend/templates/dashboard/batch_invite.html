@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Invite to apply{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block shell_style %}max-width:640px{% endblock %}
+{% block content %}
+<form class="page wf" method="post" action="{{ url_for('applications.batch_invite_confirm') }}">
+  <div style="display:flex;align-items:baseline;gap:10px"><div style="font-size:16px;font-weight:600">Invite to apply</div><div style="flex:1"></div><span class="ref">A5-S1</span></div>
+  <div style="font-size:11px;color:#5c584f;line-height:1.6">Everyone you select applies in parallel. Select as many as are worth considering.</div>
+
+  <div class="b" style="padding:0">
+    <div style="display:flex;gap:10px;padding:9px 12px;border-bottom:1px solid #ddd9d2;background:#faf9f7">
+      <div class="lbl" style="width:14px"></div>
+      <div class="lbl" style="flex:1">Candidate</div>
+      <div class="lbl" style="width:110px">Host read</div>
+      <div class="lbl" style="width:70px">Interview</div>
+    </div>
+    {% for row in candidates %}
+    <div style="display:flex;gap:10px;padding:11px 12px;border-bottom:1px solid #eae7e1;{{ 'background:#f5f8fd' if row.interview_done else '' }}">
+      <div style="width:14px"><input type="checkbox" name="lead_id" value="{{ row.lead.id }}" {{ 'checked' if row.interview_done else '' }}></div>
+      <div style="flex:1">{{ row.lead.fields.Name }}</div>
+      <div style="width:110px;color:#5c584f">{{ row.host_read_label }}</div>
+      <div style="width:70px;color:{{ '#5c584f' if row.interview_done else '#8a8680' }}">{{ 'done' if row.interview_done else '—' }}</div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="b" style="padding:10px 12px;background:#faf9f7;display:flex;gap:10px;align-items:center">
+    <div class="lbl">Criteria published</div>
+    <div style="font-size:11px">{{ 'Yes · fee $' ~ (property.fields['Fee Amount']|int) ~ ' set' if property and property.fields.get('Criteria Published') else 'Not yet' }}</div>
+    <div style="flex:1"></div>
+    <a href="{{ url_for('stub.properties') }}" style="font-size:10.5px">Review criteria</a>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:10px">
+    <div style="font-size:11px;color:#8a8680" id="selected-count">0 selected</div>
+    <div style="flex:1"></div>
+    <a class="btn" href="{{ url_for('pipeline.index') }}">Cancel</a>
+    <button type="submit" class="btnp">Invite selected to apply →</button>
+  </div>
+  <div class="hand">no per-candidate ordering, no "invite one at a time" mode</div>
+</form>
+<script>
+  const boxes = document.querySelectorAll('input[name="lead_id"]');
+  const counter = document.getElementById('selected-count');
+  function update() {
+    counter.textContent = document.querySelectorAll('input[name="lead_id"]:checked').length + ' selected';
+  }
+  boxes.forEach(b => b.addEventListener('change', update));
+  update();
+</script>
+{% endblock %}

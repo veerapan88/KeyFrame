@@ -1,0 +1,18 @@
+{% extends "applicant_base.html" %}
+{% block title_suffix %} · Pay{% endblock %}
+{% block content %}
+<div class="applicant-page wf" style="max-width:300px">
+  <div class="applicant-url-bar"><div>Stripe Checkout</div><div style="flex:1"></div><span class="ref">A5-S4a</span></div>
+  <div style="padding:16px 15px;display:flex;flex-direction:column;gap:13px">
+    <div style="font-size:13px;font-weight:600">Application fee · ${{ '%.2f'|format(property.fields['Fee Amount']) if property else '0.00' }}</div>
+    <div class="b" style="padding:0">
+      <div style="display:flex;justify-content:space-between;padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px"><span>Credit &amp; background report</span><span>${{ '%.2f'|format(property.fields['Fee Amount'] * 0.73) if property else '0.00' }}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px"><span>Time reasonably spent</span><span>${{ '%.2f'|format(property.fields['Fee Amount'] * 0.27) if property else '0.00' }}</span></div>
+      <div style="display:flex;justify-content:space-between;padding:9px 11px;font-size:11px;font-weight:600"><span>Total</span><span>${{ '%.2f'|format(property.fields['Fee Amount']) if property else '0.00' }}</span></div>
+    </div>
+    <div style="font-size:9.5px;color:#8a8680">Within the statutory cap for this property's jurisdiction.</div>
+    <div class="ph" style="height:74px">card fields · Stripe-hosted</div>
+    <a class="btnp" style="justify-content:center;padding:11px" href="{{ url_for('applicant.receipt', token=token) }}">Pay ${{ '%.2f'|format(property.fields['Fee Amount']) if property else '0.00' }}</a>
+  </div>
+</div>
+{% endblock %}

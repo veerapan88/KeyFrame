@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Properties{% endblock %}
+{% block nav_properties %}on{% endblock %}
+{% block shell_style %}max-width:600px{% endblock %}
+{% block content %}
+<div class="page wf">
+  <div style="font-size:16px;font-weight:600">Properties</div>
+  <div style="font-size:11px;color:#5c584f;line-height:1.6">Not part of this wireframe pass (no A2/A3-S1 screens were included in the design file) — this is a placeholder so the nav is complete. The criteria shown here are what the Pipeline, Applications, and applicant-facing screens read from.</div>
+  {% if property %}
+  <div class="b" style="padding:14px">
+    <div style="font-size:14px;font-weight:600">{{ property.fields.Name }}</div>
+    <div style="font-size:11px;color:#8a8680;margin-top:4px">{{ property.fields.Address }} · {{ property.fields.Jurisdiction }}</div>
+    <div style="height:1px;background:#eae7e1;margin:12px 0"></div>
+    <table class="m" style="border:0">
+      <tr><td style="border-left:0">Fee</td><td style="border-right:0">${{ property.fields['Fee Amount']|int }}</td></tr>
+      <tr><td style="border-left:0">Income ratio min</td><td style="border-right:0">{{ property.fields.get('Income Ratio Min') }}×</td></tr>
+      <tr><td style="border-left:0">Credit score min</td><td style="border-right:0">{{ property.fields.get('Credit Score Min') }}</td></tr>
+      <tr><td style="border-left:0">Eviction lookback</td><td style="border-right:0">{{ property.fields.get('Eviction Lookback Years') }} yrs</td></tr>
+      <tr><td style="border-left:0">Occupancy max</td><td style="border-right:0">{{ property.fields.get('Occupancy Max') }}</td></tr>
+      <tr><td style="border-left:0">Pets</td><td style="border-right:0">{{ property.fields.get('Pet Policy') }}</td></tr>
+      <tr><td style="border-left:0">Criteria published</td><td style="border-right:0">{{ 'Yes' if property.fields.get('Criteria Published') else 'No' }}</td></tr>
+    </table>
+  </div>
+  {% else %}
+  <div style="font-size:11px;color:#8a8680">No property yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

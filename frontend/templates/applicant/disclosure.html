@@ -1,0 +1,49 @@
+{% extends "applicant_base.html" %}
+{% block title_suffix %} · Apply{% endblock %}
+{% block content %}
+<div class="applicant-page wf">
+  <div class="applicant-url-bar"><div>keyframe.link/apply/••••</div><div style="flex:1"></div><span class="ref">A5-S3</span></div>
+  <div style="padding:18px 16px;display:flex;flex-direction:column;gap:15px">
+    <div>
+      <div style="font-size:15px;font-weight:600;line-height:1.35">Apply for {{ property.fields.Name }}</div>
+      <div style="font-size:10.5px;color:#8a8680;margin-top:4px">Invited by the owner · unit confirmed available</div>
+    </div>
+
+    <div class="b" style="padding:13px">
+      <div class="lbl">Application fee</div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-top:5px">
+        <div style="font-size:26px;font-weight:600">${{ property.fields['Fee Amount']|int }}</div>
+        <div style="font-size:10.5px;color:#8a8680">itemized before you pay</div>
+      </div>
+      <div style="height:1px;background:#eae7e1;margin:12px 0"></div>
+      <div class="lbl">Refunded in full if you're not selected</div>
+      <div style="font-size:11px;line-height:1.6;margin-top:5px">Automatic. Within 7 days of the owner choosing someone, or 30 days of your application, whichever is sooner.</div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:8px">What you'll be measured against</div>
+      <div class="b" style="padding:0">
+        <div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ Income at least {{ property.fields.get('Income Ratio Min', 3.0) }}× the rent</div>
+        <div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ Credit score {{ property.fields.get('Credit Score Min', 650) }} or above</div>
+        <div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ No eviction in the last {{ property.fields.get('Eviction Lookback Years', 5) }} years</div>
+        <div style="padding:9px 11px;border-bottom:1px solid #eae7e1;font-size:11px">☐ No more than {{ property.fields.get('Occupancy Max', 3) }} occupants</div>
+        <div style="padding:9px 11px;font-size:11px">☐ {{ property.fields.get('Pet Policy', 'Pet policy') }}</div>
+      </div>
+      <div style="font-size:9.5px;color:#8a8680;margin-top:6px">Applied identically to every applicant.</div>
+    </div>
+
+    <div>
+      <div class="lbl" style="margin-bottom:8px">Your rights</div>
+      <div style="font-size:11px;line-height:1.7;color:#5c584f">A copy of your credit report, sent to you automatically · An itemized receipt · A full refund if you're not selected</div>
+    </div>
+
+    <div class="b" style="padding:12px;background:#faf9f7">
+      <div style="font-size:11px;line-height:1.6">Already have a reusable screening report from the last 30 days? You can't be charged for one.</div>
+      <a class="btn" style="margin-top:10px;width:100%;justify-content:center;background:#fff" href="{{ url_for('applicant.portable_report', token=token) }}">Use my portable report instead</a>
+    </div>
+
+    <a class="btnp" style="justify-content:center;padding:12px" href="{{ url_for('applicant.pay', token=token) }}">Continue to payment →</a>
+    <div style="font-size:9.5px;color:#8a8680;text-align:center">Reply STOP to any text to opt out.</div>
+  </div>
+</div>
+{% endblock %}

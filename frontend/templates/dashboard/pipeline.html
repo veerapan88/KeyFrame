@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Pipeline{% endblock %}
+{% block nav_pipeline %}on{% endblock %}
+{% block content %}
+<div class="page wf">
+  <div style="display:flex;align-items:center;gap:12px">
+    <div style="font-size:17px;font-weight:600">Pipeline</div>
+    <div class="chip">{{ property.fields.Name if property else 'No property yet' }} ▾</div>
+    <div class="chip">All properties</div>
+    <div style="flex:1"></div>
+    <span class="ref">A3-S5</span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+    <div class="b" style="padding:13px"><div class="lbl">Inquiries</div><div style="font-size:30px;font-weight:600;margin-top:7px">{{ counts.inquiries }}</div></div>
+    <div class="b" style="padding:13px"><div class="lbl">Auto-declined</div><div style="font-size:30px;font-weight:600;margin-top:7px">{{ counts.auto_declined }}</div><div style="font-size:9.5px;color:#8a8680">pre-fee · no refund</div></div>
+    <div class="b" style="padding:13px"><div class="lbl">Qualified</div><div style="font-size:30px;font-weight:600;margin-top:7px">{{ counts.qualified }}</div></div>
+    <div class="b" style="padding:13px"><div class="lbl">Showed</div><div style="font-size:30px;font-weight:600;margin-top:7px">{{ counts.showed }}</div></div>
+    <div class="b" style="padding:13px;border-color:#1a1a1a"><div class="lbl" style="color:#1a1a1a">Interviewed</div><div style="font-size:30px;font-weight:600;margin-top:7px">{{ counts.interviewed }}</div></div>
+  </div>
+
+  <div class="b" style="padding:0">
+    <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border-bottom:1px solid #ddd9d2;background:#faf9f7">
+      <div class="lbl">Stage: showed ({{ showed_leads|length }})</div>
+      <div style="flex:1"></div>
+      <div class="chip">Sort: recent ▾</div>
+    </div>
+    <table class="m" style="border:0">
+      <tr><th style="border-left:0;width:30%">Lead</th><th>Status</th><th>Showing</th><th>Host read</th><th style="border-right:0;width:22%">Next</th></tr>
+      {% for row in showed_leads %}
+      <tr>
+        <td style="border-left:0">
+          {{ row.lead.fields.Name }}
+          {% if row.no_show %}<span class="chip" style="padding:2px 6px;font-size:8.5px">no-show ×{{ row.lead.fields['No Show Count'] }}</span>{% endif %}
+        </td>
+        <td>{{ row.showing.fields.Status if row.showing else '—' }}</td>
+        <td>{{ row.showing.fields.Datetime[:16].replace('T', ' ') if row.showing and row.showing.fields.Datetime else '—' }}</td>
+        <td>
+          {% if row.host_read %}
+            {{ row.host_read.fields['Showed Up'] }}{% if row.host_read.fields['Would Rent'] %} · would rent: {{ row.host_read.fields['Would Rent'] }}{% endif %}
+          {% else %}—{% endif %}
+        </td>
+        <td style="border-right:0">
+          {% if row.no_show %}
+            <span style="color:#8a8680">deprioritized <span class="ref" style="color:#8a8680;background:#f6f5f2;border-color:#e3e0da">A4-S7</span></span>
+          {% elif row.host_read and row.host_read.fields['Showed Up'] == 'Yes' %}
+            <a class="btn" style="padding:4px 9px" href="{{ url_for('applications.batch_invite') }}">Invite to apply</a>
+          {% else %}—{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px"><div class="hand">↑ counts are drill-down only — nothing here scores or orders people</div></div>
+</div>
+{% endblock %}

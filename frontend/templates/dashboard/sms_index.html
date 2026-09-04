@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title_suffix %} · Chat{% endblock %}
+{% block nav_chat %}on{% endblock %}
+{% block shell_style %}max-width:600px{% endblock %}
+{% block content %}
+<div class="page wf">
+  <div style="font-size:16px;font-weight:600">Chat</div>
+  <div style="font-size:11px;color:#5c584f;line-height:1.6">Chat is the primary way you'll talk to KeyFrame once the AI surface is built — this build ships the message-log reference views for the SMS threads that run around it instead. Full conversational chat isn't in this wireframe pass.</div>
+  <div class="b" style="padding:0">
+    <a href="{{ url_for('sms.lead_thread') }}" style="display:block;padding:12px;border-bottom:1px solid #eae7e1;font-size:12px">Lead → applicant thread <span class="chip" style="margin-left:6px">A3-S2 → A5-S10</span></a>
+    <a href="{{ url_for('sms.ti_thread') }}" style="display:block;padding:12px;border-bottom:1px solid #eae7e1;font-size:12px">Trusted Individual thread <span class="chip" style="margin-left:6px">A1-S5 → A4-S6</span></a>
+    <a href="{{ url_for('sms.tenant_thread') }}" style="display:block;padding:12px;font-size:12px">Tenant thread — renewal &amp; maintenance <span class="chip" style="margin-left:6px">A1-S2, B1-S1/S2/S3</span></a>
+  </div>
+</div>
+{% endblock %}
